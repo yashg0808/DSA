@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//TopoSort with dfs
+//TopoSort with DFS
 void dfs(vector<vector<int> >& adjList, int startNode,
          vector<bool>& visited, stack<int> &st)
 {
@@ -125,7 +125,7 @@ int bfs1(vector<vector<int>> &grid){
     return minutes;
 }
 
-// detecting a cycle in an undirected graph using bfs
+// detecting a cycle in an undirected graph using BFS
 bool detectCycleInUndirectedGph(vector<vector<int>> &adjList, int startNode, vector<bool> &visited){
     queue<pair<int, int>> q;
     //{node, parent}
@@ -150,7 +150,7 @@ bool detectCycleInUndirectedGph(vector<vector<int>> &adjList, int startNode, vec
     return false;
 }
 
-// detecting a cycle in a directed graph using dfs
+// detecting a cycle in a directed graph using DFS
 bool detectCycleInDirectedGph(vector<vector<int>> &adjList, int startNode, vector<bool> &visited, vector<bool> &pathVisit){
     visited[startNode]=1;
     pathVisit[startNode]=1;
