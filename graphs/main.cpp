@@ -29,6 +29,31 @@ vector<int> topoSort(vector<vector<int> >& adjList, int vertices){
     return ans;
 }
 
+//Toposort with BFS
+vector<int> topoSortBFS(vector<vector<int> >& adjList, int vertices){
+    vector<int> inDegree(vertices, 0);
+    for(int i=0; i<vertices; i++){
+        for(auto j:adjList[i]){
+            inDegree[j]++;
+        }
+    }
+    queue<int> q;
+    for(int i=0; i<vertices; i++){
+        if(inDegree[i]==0)q.push(i);
+    }
+    vector<int> ans;
+    while(!q.empty()){
+        int node=q.front();
+        q.pop();
+        ans.push_back(node);
+        for(auto i:adjList[node]){
+            inDegree[i]--;
+            if(inDegree[i]==0)q.push(i);
+        }
+    }
+    return ans;
+}
+
 //same as level order traversal (bfs)
 void bfs(vector<vector<int> >& adjList, int startNode,
          vector<bool>& visited, vector<int> &min_dist_from_source)
@@ -185,9 +210,9 @@ int main()
 //    //BFS{
 //    int vertices = 5;
 //    vector<int> min_dist_from_source(vertices,0);
-
+//
 //    vector<vector<int>> adjList(vertices);
-
+//
 //    // Add edges to the graph
 //    addEdge(adjList, 0, 1);
 //    addEdge(adjList, 0, 2);
@@ -195,7 +220,7 @@ int main()
 //    addEdge(adjList, 1, 2);
 //    addEdge(adjList, 2, 4);
 //    addEdge(adjList, 3, 4);
-
+//
 //    vector<bool> visited(vertices, false);
 //    bfs(adjList, 0, visited, min_dist_from_source);
 //    cout<<endl<<min_dist_from_source[4]<<endl;
@@ -244,7 +269,7 @@ int main()
 //    dfs(adjList, 0, visited, st);
 //    //}
 
-////    TopoSort{
+// //    TopoSort using DFS{
 //    int vertices=6;
 //    vector<vector<int>> adjList(vertices);
 //    addDirectedEdge(adjList, 5, 0);
@@ -257,7 +282,22 @@ int main()
 //    for(auto i:ans){
 //        cout<<i<<" ";
 //    }
-////  }
+// //  }
+
+//    //TopoSort using BFS{
+//    int vertices=6;
+//    vector<vector<int>> adjList(vertices);
+//    addDirectedEdge(adjList, 5, 0);
+//    addDirectedEdge(adjList, 5, 2);
+//    addDirectedEdge(adjList, 2, 3);
+//    addDirectedEdge(adjList, 3, 1);
+//    addDirectedEdge(adjList, 4, 0);
+//    addDirectedEdge(adjList, 4, 1);
+//    vector<int> ans=topoSortBFS(adjList, vertices);
+//    for(auto i:ans){
+//        cout<<i<<" ";
+//    }
+//    //  }
 
     // //detecting a cycle in an undirected graph using bfs{
     // int vertices = 5;
