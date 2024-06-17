@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+//TopoSort with dfs
 void dfs(vector<vector<int> >& adjList, int startNode,
          vector<bool>& visited, stack<int> &st)
 {
@@ -28,7 +29,7 @@ vector<int> topoSort(vector<vector<int> >& adjList, int vertices){
     return ans;
 }
 
-//same as level order traversal
+//same as level order traversal (bfs)
 void bfs(vector<vector<int> >& adjList, int startNode,
          vector<bool>& visited, vector<int> &min_dist_from_source)
 {
@@ -124,13 +125,30 @@ int bfs1(vector<vector<int>> &grid){
     return minutes;
 }
 
-//detecting a cycle in an undirected graph using bfs
-//void bfs2(vector<vector<int>> &grid){
-//    int n=grid.size();
-//    int m=grid[0].size();
-//    queue<pair<int>> q;
-//
-//}
+// detecting a cycle in an undirected graph using bfs
+bool bfs2(vector<vector<int>> &adjList, int startNode, vector<bool> &visited){
+    queue<pair<int, int>> q;
+    //{node, parent}
+    q.push({startNode, -1});
+    visited[startNode]=1;
+
+    while(!q.empty()){
+        int node=q.front().first;
+        int parent=q.front().second;
+        q.pop();
+
+        for(auto i:adjList[node]){
+            if(!visited[i]){
+                visited[i]=1;
+                q.push({i, node});
+            }
+            else if(parent!=i){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 void addEdge(vector<vector<int> >& adjList, int u, int v)
 {
@@ -149,24 +167,24 @@ void addDirectedEdge(vector<vector<int> >& adjList, int u, int v){
 
 int main()
 {
-   //BFS{
-   int vertices = 5;
-   vector<int> min_dist_from_source(vertices,0);
+//    //BFS{
+//    int vertices = 5;
+//    vector<int> min_dist_from_source(vertices,0);
 
-   vector<vector<int>> adjList(vertices);
+//    vector<vector<int>> adjList(vertices);
 
-   // Add edges to the graph
-   addEdge(adjList, 0, 1);
-   addEdge(adjList, 0, 2);
-   addEdge(adjList, 1, 3);
-   addEdge(adjList, 1, 2);
-   addEdge(adjList, 2, 4);
-   addEdge(adjList, 3, 4);
+//    // Add edges to the graph
+//    addEdge(adjList, 0, 1);
+//    addEdge(adjList, 0, 2);
+//    addEdge(adjList, 1, 3);
+//    addEdge(adjList, 1, 2);
+//    addEdge(adjList, 2, 4);
+//    addEdge(adjList, 3, 4);
 
-   vector<bool> visited(vertices, false);
-   bfs(adjList, 0, visited, min_dist_from_source);
-   cout<<endl<<min_dist_from_source[4]<<endl;
-   //}
+//    vector<bool> visited(vertices, false);
+//    bfs(adjList, 0, visited, min_dist_from_source);
+//    cout<<endl<<min_dist_from_source[4]<<endl;
+//    //}
 
 //    //DIJKSTRA{
 //    vector<vector<pair<int,int>>> adj(9);
@@ -225,5 +243,17 @@ int main()
 //        cout<<i<<" ";
 //    }
 ////  }
+
+    // //detecting a cycle in an undirected graph using bfs{
+    // int vertices = 5;
+    // vector<vector<int>> adjList(vertices);
+    // vector<bool> visited(vertices, false);
+    // addEdge(adjList, 0, 2);
+    // addEdge(adjList, 1, 3);
+    // addEdge(adjList, 1, 2);
+    // addEdge(adjList, 2, 4);
+    // cout<<bfs2(adjList, 0, visited);
+    // //}
+
     return 0;
 }
