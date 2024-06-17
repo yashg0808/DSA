@@ -150,6 +150,21 @@ bool bfs2(vector<vector<int>> &adjList, int startNode, vector<bool> &visited){
     return false;
 }
 
+// detecting a cycle in a directed graph using dfs
+bool dfs2(vector<vector<int>> &adjList, int startNode, vector<bool> &visited, vector<bool> &pathVisit){
+    visited[startNode]=1;
+    pathVisit[startNode]=1;
+
+    for(auto i:adjList[startNode]){
+        if(!visited[i]){
+            if(dfs2(adjList, i, visited, pathVisit))return true;
+        }
+        else if(pathVisit[i])return true;
+    }
+    pathVisit[startNode]=0;
+    return false;
+}
+
 void addEdge(vector<vector<int> >& adjList, int u, int v)
 {
     adjList[u].push_back(v);
@@ -255,5 +270,27 @@ int main()
     // cout<<bfs2(adjList, 0, visited);
     // //}
 
+    // //detecting a cycle in a directed graph using dfs{
+    // int vertices = 11;
+    // vector<vector<int>> adjList(vertices);
+    // vector<bool> visited(vertices, false);
+    // vector<bool> pathVisit(vertices, false);
+    // addDirectedEdge(adjList, 1, 2);
+    // addDirectedEdge(adjList, 2, 3);
+    // addDirectedEdge(adjList, 3, 4);
+    // addDirectedEdge(adjList, 4, 9);
+    // addDirectedEdge(adjList, 9, 10);
+    // addDirectedEdge(adjList, 3, 8);                  
+    // addDirectedEdge(adjList, 8, 9);
+    // addDirectedEdge(adjList, 7, 2);
+    // addDirectedEdge(adjList, 7, 5);
+    // addDirectedEdge(adjList, 5, 6);
+    // addDirectedEdge(adjList, 6, 7);
+    // for(int i=1; i<vertices; i++){
+    //     if(!visited[i]){
+    //         cout<<dfs2(adjList, i, visited, pathVisit)<<endl;
+    //     }
+    // }
+    // //}
     return 0;
 }
