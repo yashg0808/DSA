@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-//TopoSort with DFS
+// 1. TopoSort with DFS
 void dfs(vector<vector<int> >& adjList, int startNode,
          vector<bool>& visited, stack<int> &st)
 {
@@ -29,7 +29,7 @@ vector<int> topoSort(vector<vector<int> >& adjList, int vertices){
     return ans;
 }
 
-//Toposort with BFS
+// 2. Toposort with BFS
 vector<int> topoSortBFS(vector<vector<int> >& adjList, int vertices){
     vector<int> inDegree(vertices, 0);
     for(int i=0; i<vertices; i++){
@@ -54,7 +54,7 @@ vector<int> topoSortBFS(vector<vector<int> >& adjList, int vertices){
     return ans;
 }
 
-//same as level order traversal (bfs)
+// 3. same as level order traversal (bfs)
 void bfs(vector<vector<int> >& adjList, int startNode,
          vector<bool>& visited, vector<int> &min_dist_from_source)
 {
@@ -77,7 +77,7 @@ void bfs(vector<vector<int> >& adjList, int startNode,
     return;
 }
 
-//dijkstra
+// 4. dijkstra
 vector<int> dijkstra(vector<vector<pair<int,int>>> adjList, int s, int V){
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     vector<int> dist(V, 1e9);
@@ -101,7 +101,7 @@ vector<int> dijkstra(vector<vector<pair<int,int>>> adjList, int s, int V){
     return dist;
 }
 
-//rotten oranges using bfs
+// 5. rotten oranges using bfs
 int bfs1(vector<vector<int>> &grid){
 
     int m = grid.size();
@@ -150,7 +150,7 @@ int bfs1(vector<vector<int>> &grid){
     return minutes;
 }
 
-// detecting a cycle in an undirected graph using BFS
+// 6. detecting a cycle in an undirected graph using BFS
 bool detectCycleInUndirectedGph(vector<vector<int>> &adjList, int startNode, vector<bool> &visited){
     queue<pair<int, int>> q;
     //{node, parent}
@@ -175,7 +175,7 @@ bool detectCycleInUndirectedGph(vector<vector<int>> &adjList, int startNode, vec
     return false;
 }
 
-// detecting a cycle in a directed graph using DFS
+// 7. detecting a cycle in a directed graph using DFS
 bool detectCycleInDirectedGph(vector<vector<int>> &adjList, int startNode, vector<bool> &visited, vector<bool> &pathVisit){
     visited[startNode]=1;
     pathVisit[startNode]=1;
