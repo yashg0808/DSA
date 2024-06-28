@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
+//DFS is all about recursion
+//BFS is all about queue (contains while and then for loop)
 
-// 1. TopoSort with DFS
+// 1. TopoSort with DFS (topoSort is only for DAG)
 void dfs(vector<vector<int> >& adjList, int startNode,
          vector<bool>& visited, stack<int> &st)
 {
@@ -31,16 +33,18 @@ vector<int> topoSort(vector<vector<int> >& adjList, int vertices){
 
 // 2. Toposort with BFS
 vector<int> topoSortBFS(vector<vector<int> >& adjList, int vertices){
-    vector<int> inDegree(vertices, 0);
+    vector<int> inDegree(vertices, 0); //incoming edges to a node
     for(int i=0; i<vertices; i++){
         for(auto j:adjList[i]){
             inDegree[j]++;
         }
     }
+    //store nodes with 0 incoming edges(top of the chain) in a queue
     queue<int> q;
     for(int i=0; i<vertices; i++){
         if(inDegree[i]==0)q.push(i);
     }
+    //pop the top of the chain and reduce the incoming edges of its neighbours
     vector<int> ans;
     while(!q.empty()){
         int node=q.front();
@@ -77,7 +81,7 @@ void bfs(vector<vector<int> >& adjList, int startNode,
     return;
 }
 
-// 4. dijkstra
+// 4. dijkstra (contains priority queue, priority queue and also, while and then for loop like in BSF)
 vector<int> dijkstra(vector<vector<pair<int,int>>> adjList, int s, int V){
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
     vector<int> dist(V, 1e9);
@@ -318,19 +322,19 @@ int main()
     // addDirectedEdge(adjList, 1, 2);
     // addDirectedEdge(adjList, 2, 3);
     // addDirectedEdge(adjList, 3, 4);
-    // addDirectedEdge(adjList, 4, 9);
-    // addDirectedEdge(adjList, 9, 10);
-    // addDirectedEdge(adjList, 3, 8);                  
-    // addDirectedEdge(adjList, 8, 9);
-    // addDirectedEdge(adjList, 7, 2);
-    // addDirectedEdge(adjList, 7, 5);
+    // addDirectedEdge(adjList, 4, 5);
     // addDirectedEdge(adjList, 5, 6);
-    // addDirectedEdge(adjList, 6, 7);
+    // addDirectedEdge(adjList, 3, 7);                  
+    // addDirectedEdge(adjList, 7, 5);
+    // addDirectedEdge(adjList, 8, 2);
+    // addDirectedEdge(adjList, 8, 9);
+    // addDirectedEdge(adjList, 9, 10);
+    // addDirectedEdge(adjList, 10, 8);
     // for(int i=1; i<vertices; i++){
     //     if(!visited[i]){
     //         cout<<detectCycleInDirectedGph(adjList, i, visited, pathVisit)<<endl;
     //     }
     // }
     // //}
-    return 0;
+    // return 0;
 }
