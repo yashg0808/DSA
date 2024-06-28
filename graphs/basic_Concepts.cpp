@@ -7,7 +7,7 @@ void dfs(vector<vector<int> >& adjList, int startNode,
 {
     visited[startNode]=1;
     for(auto i:adjList[startNode]){
-        if(!visited[i])dfs(adjList, i, visited, st);
+        if(!visited[i])dfs(adjList, i, visited, st);        //keep in mind the recursion stack 
     }
     st.push(startNode);
 }
