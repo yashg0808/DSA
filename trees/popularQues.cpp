@@ -92,7 +92,7 @@ public:
         if (prev != NULL && prev->val >= root->val)
             return false;
 
-        prev = root;
+        prev = root; //here prev starts from leftmmost node and then goes to root and then rightmost node
 
         if (!isValidBST(root->right))
             return false;

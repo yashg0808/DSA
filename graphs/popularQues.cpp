@@ -126,3 +126,38 @@ public:
         return ans;
     }
 };
+
+//https://leetcode.com/problems/find-eventual-safe-states/description/
+class eventualSafeStates
+{
+public:
+    bool dfs(vector<vector<int>> &graph, vector<int> &vis, int node)
+    {
+        if (vis[node] == 1)
+            return 1; // cycle detected
+        if (vis[node] == 2)
+            return 0;
+        vis[node] = 1;
+        for (auto i : graph[node])
+        {
+            if (dfs(graph, vis, i))
+                return 1;
+        }
+        vis[node] = 2; // safe node
+        return 0;
+    }
+
+    vector<int> eventualSafeNodes(vector<vector<int>> &graph)
+    {
+        vector<int> vis(graph.size(), 0);
+        vector<int> ans;
+        for (int i = 0; i < graph.size(); i++)
+        {
+            if (!dfs(graph, vis, i))
+                ans.push_back(i);
+        }
+        return ans;
+    }
+};
+
+// https://leetcode.com/problems/minimum-height-trees/description/
