@@ -11,6 +11,23 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+// https://leetcode.com/problems/merge-two-binary-trees/description/
+class MergeTwoBinaryTrees
+{
+public:
+    TreeNode *mergeTrees(TreeNode *t1, TreeNode *t2)
+    {
+        if (t1 == NULL)
+            return t2;
+        if (t2 == NULL)
+            return t1;
+        t1->val += t2->val;
+        t1->left = mergeTrees(t1->left, t2->left);
+        t1->right = mergeTrees(t1->right, t2->right);
+        return t1;
+    }
+};
+
 // https://leetcode.com/problems/kth-smallest-element-in-a-bst/description/
 class kthSmallestInBST // used INORDER TRAVERSAL
 {
@@ -36,6 +53,40 @@ public:
         int ans;
         solve(root, cnt, ans, k);
         return ans;
+    }
+};
+
+// https://leetcode.com/problems/delete-node-in-a-bst/description/
+class DeleteNodeInBST
+{
+public:
+    TreeNode *deleteNode(TreeNode *root, int key)
+    {
+        if (!root)
+            return NULL;
+        if (key < root->val)
+        {
+            root->left = deleteNode(root->left, key);
+        }
+        else if (key > root->val)
+        {
+            root->right = deleteNode(root->right, key);
+        }
+        else
+        {
+            if (!root->left)
+                return root->right;
+            if (!root->right)
+                return root->left;
+            TreeNode *node = root->left;
+            while (node->right)
+            {
+                node = node->right;
+            }
+            root->val = node->val;
+            root->left = deleteNode(root->left, node->val);
+        }
+        return root;
     }
 };
 
@@ -92,7 +143,7 @@ public:
         if (prev != NULL && prev->val >= root->val)
             return false;
 
-        prev = root; //here prev starts from leftmmost node and then goes to root and then rightmost node
+        prev = root; // here prev starts from leftmmost node and then goes to root and then rightmost node
 
         if (!isValidBST(root->right))
             return false;
