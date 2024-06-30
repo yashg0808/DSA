@@ -98,7 +98,7 @@ void bfs(vector<vector<int>> &adjList, int startNode,
     return;
 }
 
-// 4. dijkstra (contains priority queue, priority queue and also, while and then for loop like in BSF)
+// 4. dijkstra (contains priority queue, and also, while and then for loop like in BSF)
 vector<int> dijkstra(vector<vector<pair<int, int>>> adjList, int s, int V)
 {
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;

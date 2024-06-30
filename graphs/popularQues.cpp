@@ -127,7 +127,7 @@ public:
     }
 };
 
-//https://leetcode.com/problems/find-eventual-safe-states/description/
+// https://leetcode.com/problems/find-eventual-safe-states/description/
 class eventualSafeStates
 {
 public:
@@ -161,3 +161,88 @@ public:
 };
 
 // https://leetcode.com/problems/minimum-height-trees/description/
+class Solution
+{
+public:
+    vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges)
+    {
+        if (n == 1)
+            return {0}; // Single node case
+
+        vector<vector<int>> adjList(n);
+        vector<int> degree(n, 0);
+
+        for (auto e : edges)
+        {
+            adjList[e[0]].push_back(e[1]);
+            adjList[e[1]].push_back(e[0]);
+            degree[e[0]]++;
+            degree[e[1]]++;
+        }
+
+        queue<int> leaves;
+        for (int i = 0; i < n; i++)
+        {
+            if (degree[i] == 1)
+            {
+                leaves.push(i); // Initial leaves
+            }
+        }
+
+        int remainingNodes = n;
+        while (remainingNodes > 2)
+        {
+            int leavesSize = leaves.size();
+            remainingNodes -= leavesSize;
+
+            for (int i = 0; i < leavesSize; i++)
+            {
+                int leaf = leaves.front();
+                leaves.pop();
+                for (auto neighbor : adjList[leaf])
+                {
+                    degree[neighbor]--;
+                    if (degree[neighbor] == 1)
+                    {
+                        leaves.push(neighbor); // New leaf
+                    }
+                }
+            }
+        }
+
+        vector<int> ans;
+        while (!leaves.empty())
+        {
+            ans.push_back(leaves.front());
+            leaves.pop();
+        }
+
+        return ans;
+    }
+};
+
+// https://leetcode.com/problems/minimum-cost-to-connect-sticks/description/
+// You have some number of sticks with positive integer lengths. These lengths are given as an array sticks, where sticks[i] is the length of the ith stick.
+// You can connect any two sticks of lengths x and y into one stick by paying a cost of x + y. You must connect all the sticks until there is only one stick remaining.
+// Return the minimum cost of connecting all the given sticks into one stick in this way.
+class minCostToConnectSticks
+{
+public:
+    int connectSticks(vector<int> &sticks)
+    {
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for (auto i : sticks)
+            pq.push(i);
+        int ans = 0;
+        while (pq.size() > 1)
+        {
+            int a = pq.top();
+            pq.pop();
+            int b = pq.top();
+            pq.pop();
+            ans += a + b;
+            pq.push(a + b);
+        }
+        return ans;
+    }
+};
