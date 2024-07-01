@@ -183,7 +183,7 @@ public:
     }
 
     // or
-    vector<vector<int>> levelOrder(TreeNode *root)
+    vector<vector<int>> levelOrder2(TreeNode *root)
     {
         if (root == NULL)
             return {};
@@ -257,3 +257,8 @@ public:
         return ans;
     }
 };
+
+int main()
+{
+    return 0;
+}
